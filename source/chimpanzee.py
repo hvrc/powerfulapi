@@ -41,7 +41,7 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
             "Title": title,
             "Number": number,
             "URL": URL,
-            "PublishedAt": fullDate
+            "Date": fullDate
         }
 
         if title[:22] == "Joe Rogan Experience #":
