@@ -10,7 +10,7 @@ def home(request, guest):
     videos = getVideos()
     filteredVideos = getFilteredVideos(
         videos=videos,
-        guest=unquote(guest) if guest != "All" else "",
+        guest=unquote(guest) if guest != "all" else "",
         category=unquote(request.GET.get("category", "All")),
         sort=request.GET.get("sort", "Date"),
         order=request.GET.get("order", "ascending")
