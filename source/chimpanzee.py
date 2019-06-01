@@ -32,7 +32,6 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
         nextPageToken = None
 
     for video in videosResponse:
-        position = int(video["snippet"]["position"]) + 1
         title = video["snippet"]["title"]
         number = int(re.findall("\d+", title)[0] if bool(re.search(r"\d", title)) else 0)
         videoId = video["snippet"]["resourceId"]["videoId"]
@@ -42,7 +41,6 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
         thumbnail = video["snippet"]["thumbnails"]["high"]["url"]
 
         videoData = {
-            "Position": position,
             "Title": title,
             "Number": number,
             "URL": URL,
