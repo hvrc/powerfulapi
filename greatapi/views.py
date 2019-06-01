@@ -16,7 +16,7 @@ def home(request):
         order=request.GET.get("order", "ascending")
     )
     return JsonResponse(
-        data=videos,
+        data=filteredVideos,
         json_dumps_params={"indent": 4},
         safe=False
     )
