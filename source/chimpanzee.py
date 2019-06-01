@@ -49,7 +49,7 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
         statistics = statisticsResponse["items"]
 
         for statistic in statistics:
-            views = statistic["statistics"]["viewCount"]
+            views = int(statistic["statistics"]["viewCount"])
 
         videoData = {
             "Position": position,
