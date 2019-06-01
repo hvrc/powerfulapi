@@ -28,7 +28,8 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
         ).execute()
 
         videosResponse += thisPageResponse["items"]
-        nextPageToken = thisPageResponse.get("nextPageToken")
+        # nextPageToken = thisPageResponse.get("nextPageToken")
+        nextPageToken = None
 
     for video in videosResponse:
         position = int(video["snippet"]["position"]) + 1
