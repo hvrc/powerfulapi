@@ -6,11 +6,11 @@ from urllib.parse import unquote
 from source.chimpanzee import *
 
 @csrf_exempt
-def home(request):
+def home(request, guest):
     videos = getVideos()
     filteredVideos = getFilteredVideos(
         videos=videos,
-        guest=unquote(request.GET.get("guest", "")),
+        guest=unquote(guest) if guest != "All" else "",
         category=unquote(request.GET.get("category", "All")),
         sort=request.GET.get("sort", "Date"),
         order=request.GET.get("order", "ascending")
