@@ -28,20 +28,38 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
         ).execute()
 
         videosResponse += thisPageResponse["items"]
-        nextPageToken = thisPageResponse.get("nextPageToken")
+        # nextPageToken = thisPageResponse.get("nextPageToken")
+        nextPageToken = None
 
     for video in videosResponse:
+        position = int(video["snippet"]["position"]) + 1
         title = video["snippet"]["title"]
         number = int(re.findall("\d+", title)[0] if bool(re.search(r"\d", title)) else 0)
         videoId = video["snippet"]["resourceId"]["videoId"]
         URL = "https://www.youtube.com/watch?v=" + videoId
         fullDate = video["snippet"]["publishedAt"]
+        description = video["snippet"]["description"]
+        thumbnail = video["snippet"]["thumbnails"]["high"]["url"]
+
+        statisticsResponse = youtube.videos().list(
+            id=videoId,
+            part="statistics"
+        ).execute()
+
+        statistics = statisticsResponse["items"]
+
+        for statistic in statistics:
+            views = statistic["statistics"]["viewCount"]
 
         videoData = {
+            "Position": position,
             "Title": title,
             "Number": number,
             "URL": URL,
-            "Date": fullDate
+            "Date": fullDate,
+            "Description": description,
+            "Thumbnail": thumbnail,
+            "Views": views
         }
 
         if title[:22] == "Joe Rogan Experience #":
