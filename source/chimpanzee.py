@@ -6,6 +6,10 @@ import re
 powerful_api_key = os.environ.get("POWERFUL_API_KEY")
 powerful_channelId = "UCzQUP1qoWDoEbmsQxvdjxgQ"
 
+def categorize():
+
+
+
 def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
     videosResponse = []
     nextPageToken = ""
@@ -39,6 +43,7 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
         fullDate = datetime.strptime(video["snippet"]["publishedAt"], "%Y-%m-%dT%H:%M:%S.000Z").strftime("%Y-%m-%d %H:%M:%S")
         description = video["snippet"]["description"]
         thumbnail = video["snippet"]["thumbnails"]["high"]["url"]
+        number = 0
 
         if title[:22].lower() == "joe rogan experience #":
             category = "Interview"
@@ -46,7 +51,6 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
 
         elif title[:41].lower() == "joe rogan experience - fight companion - ":
             category = "Fight Companion"
-            number = 0
 
         elif title[:14].lower() == "jre mma show #":
             category = "MMA Show"
@@ -54,7 +58,6 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
 
         elif title[-11:].lower() == " - jre toon" or title[-12:].lower() == " - jre toons":
             category = "Toon"
-            number = 0
 
         elif title[:27].lower() == "joe rogan experience vlog #":
             category = "Vlog"
@@ -62,7 +65,6 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
 
         elif title[:19].lower() == "best of the week - ":
             category = "Best of the Week"
-            number = 0
 
         elif title[:32].lower() == "joe rogan questions everything #":
             category = "Joe Questions Everything"
@@ -70,7 +72,6 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
 
         elif title[-15:].lower() == " year in review":
             category = "Year Review"
-            number = 0
 
         elif "(from" in title.lower():
             category = "Clip"
@@ -78,7 +79,6 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
 
         else:
             category = "Other"
-            number = 0
 
         videos.append({
             "Title": title,
