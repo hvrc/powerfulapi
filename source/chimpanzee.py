@@ -36,7 +36,7 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
         title = video["snippet"]["title"]
         videoId = video["snippet"]["resourceId"]["videoId"]
         URL = "https://www.youtube.com/watch?v=" + videoId
-        fullDate = datetime.strptime(video["snippet"]["publishedAt"], "%Y-%m-%dT%H:%M:%S.000Z").strftime("%d-%m-%Y %H:%M:%S")
+        fullDate = datetime.strptime(video["snippet"]["publishedAt"], "%Y-%m-%dT%H:%M:%S.000Z").strftime("%Y-%m-%d %H:%M:%S")
         description = video["snippet"]["description"]
         thumbnail = video["snippet"]["thumbnails"]["high"]["url"]
 
