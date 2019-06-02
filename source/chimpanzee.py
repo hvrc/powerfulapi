@@ -1,8 +1,10 @@
 from apiclient.discovery import build
+from datetime import datetime
 import os
 import re
 
-powerful_api_key = os.environ.get("POWERFUL_API_KEY")
+# powerful_api_key = os.environ.get("POWERFUL_API_KEY")
+powerful_api_key = "AIzaSyBtqdvlu4XSplGdpV084c6IyjC4eKtDsF4"
 powerful_channelId = "UCzQUP1qoWDoEbmsQxvdjxgQ"
 
 def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
@@ -28,58 +30,66 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
         ).execute()
 
         videosResponse += thisPageResponse["items"]
-        # nextPageToken = thisPageResponse.get("nextPageToken")
-        nextPageToken = None
+        nextPageToken = thisPageResponse.get("nextPageToken")
+        # nextPageToken = None
 
     for video in videosResponse:
         title = video["snippet"]["title"]
-        number = int(re.findall("\d+", title)[0] if bool(re.search(r"\d", title)) else 0)
         videoId = video["snippet"]["resourceId"]["videoId"]
         URL = "https://www.youtube.com/watch?v=" + videoId
-        fullDate = video["snippet"]["publishedAt"]
+        fullDate = datetime.strptime(video["snippet"]["publishedAt"], "%Y-%m-%dT%H:%M:%S.000Z").strftime("%d-%m-%Y %H:%M:%S")
         description = video["snippet"]["description"]
         thumbnail = video["snippet"]["thumbnails"]["high"]["url"]
 
-        videoData = {
+        if title[:22].lower() == "joe rogan experience #":
+            category = "Interview"
+            number = int(re.findall("\d+", title)[0] if bool(re.search(r"\d", title)) else 0)
+
+        elif title[:41].lower() == "joe rogan experience - fight companion - ":
+            category = "Fight Companion"
+            number = 0
+
+        elif title[:14].lower() == "jre mma show #":
+            category = "MMA Show"
+            number = int(re.findall("\d+", title)[0] if bool(re.search(r"\d", title)) else 0)
+
+        elif title[-11:].lower() == " - jre toon" or title[-12:].lower() == " - jre toons":
+            category = "Toon"
+            number = 0
+
+        elif title[:27].lower() == "joe rogan experience vlog #":
+            category = "Vlog"
+            number = int(re.findall("\d+", title)[0] if bool(re.search(r"\d", title)) else 0)
+
+        elif title[:19].lower() == "best of the week - ":
+            category = "Best of the Week"
+            number = 0
+
+        elif title[:32].lower() == "joe rogan questions everything #":
+            category = "Joe Questions Everything"
+            number = int(re.findall("\d+", title)[0] if bool(re.search(r"\d", title)) else 0)
+
+        elif title[-15:].lower() == " year in review":
+            category = "Year Review"
+            number = 0
+
+        elif "(from" in title.lower():
+            category = "Clip"
+            number = int(re.findall("\d+", title)[0] if bool(re.search(r"\d", title)) else 0)
+
+        else:
+            category = "Other"
+            number = 0
+
+        videos.append({
             "Title": title,
+            "Category": category,
             "Number": number,
             "URL": URL,
             "Date": fullDate,
             "Description": description,
             "Thumbnail": thumbnail,
-        }
-
-        if title[:22] == "Joe Rogan Experience #":
-            videoData["Category"] = "Interview"
-
-        elif title[:41] == "Joe Rogan Experience - Fight Companion - ":
-            videoData["Category"] = "Fight Companion"
-
-        elif title[:14] == "JRE MMA Show #":
-            videoData["Category"] = "MMA Show"
-
-        elif title[-11:] == " - JRE Toon" or title[-12:] == " - JRE Toons":
-            videoData["Category"] = "Toon"
-
-        elif title[:27] == "Joe Rogan Experience Vlog #":
-            videoData["Category"] = "Vlog"
-
-        elif title[:19] == "Best of the Week - ":
-            videoData["Category"] = "Best of the Week"
-
-        elif title[:32] == "Joe Rogan Questions Everything #":
-            videoData["Category"] = "Joe Questions Everything"
-
-        elif title[-15:] == " Year in Review":
-            videoData["Category"] = "Year Review"
-
-        elif "(from" in title:
-            videoData["Category"] = "Clip"
-
-        else:
-            videoData["Category"] = "Other"
-
-        videos.append(videoData)
+        })
 
     return videos
 
