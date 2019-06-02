@@ -3,8 +3,7 @@ from datetime import datetime
 import os
 import re
 
-# powerful_api_key = os.environ.get("POWERFUL_API_KEY")
-powerful_api_key = "AIzaSyBtqdvlu4XSplGdpV084c6IyjC4eKtDsF4"
+powerful_api_key = os.environ.get("POWERFUL_API_KEY")
 powerful_channelId = "UCzQUP1qoWDoEbmsQxvdjxgQ"
 
 def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
