@@ -30,8 +30,7 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
         ).execute()
 
         videosResponse += thisPageResponse["items"]
-        # nextPageToken = thisPageResponse.get("nextPageToken")
-        nextPageToken = None
+        nextPageToken = thisPageResponse.get("nextPageToken")
 
     for video in videosResponse:
         title = video["snippet"]["title"]
@@ -89,9 +88,13 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
 
     return videos
 
-def saveToStatic(videos):
-    with open("data.json", "w") as outfile:
-        json.dump(videos, outfile)
+def saveToStatic(videos, path):
+    with open(path, "w") as file:
+        json.dump(videos, file)
+
+def readFromStatic(path):
+    with open(path) as file:
+        return json.load(file)
 
 def getFilteredVideos(videos, guest="", category="", sort="Date", order="ascending"):
     return sorted(
