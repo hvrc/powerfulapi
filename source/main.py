@@ -2,6 +2,7 @@ from apiclient.discovery import build
 from datetime import datetime
 import os
 import re
+import json
 
 powerful_api_key = os.environ.get("POWERFUL_API_KEY")
 powerful_channelId = "UCzQUP1qoWDoEbmsQxvdjxgQ"
@@ -29,8 +30,8 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
         ).execute()
 
         videosResponse += thisPageResponse["items"]
-        nextPageToken = thisPageResponse.get("nextPageToken")
-        # nextPageToken = None
+        # nextPageToken = thisPageResponse.get("nextPageToken")
+        nextPageToken = None
 
     for video in videosResponse:
         title = video["snippet"]["title"]
@@ -87,6 +88,10 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
         })
 
     return videos
+
+def saveToStatic(videos):
+    with open("data.json", "w") as outfile:
+        json.dump(videos, outfile)
 
 def getFilteredVideos(videos, guest="", category="", sort="Date", order="ascending"):
     return sorted(
