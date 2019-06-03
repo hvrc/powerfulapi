@@ -29,8 +29,8 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
         ).execute()
 
         videosResponse += thisPageResponse["items"]
-        # nextPageToken = thisPageResponse.get("nextPageToken")
-        nextPageToken = None
+        nextPageToken = thisPageResponse.get("nextPageToken")
+        # nextPageToken = None
 
     for video in videosResponse:
         title = video["snippet"]["title"]
