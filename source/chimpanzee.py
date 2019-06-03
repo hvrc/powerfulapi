@@ -53,7 +53,7 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
             number = int(re.findall("\d+", title)[0] if bool(re.search(r"\d", title)) else 0)
 
         elif title[-11:].lower() == " - jre toon" or title[-12:].lower() == " - jre toons":
-            category = "Toon"
+            category = "JRE Toons"
 
         elif title[:27].lower() == "joe rogan experience vlog #":
             category = "Vlog"
@@ -67,7 +67,7 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
             number = int(re.findall("\d+", title)[0] if bool(re.search(r"\d", title)) else 0)
 
         elif title[-15:].lower() == " year in review":
-            category = "Year Review"
+            category = "Year in Review"
 
         elif "(from" in title.lower():
             category = "Clip"
