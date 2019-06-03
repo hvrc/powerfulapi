@@ -6,10 +6,6 @@ import re
 powerful_api_key = os.environ.get("POWERFUL_API_KEY")
 powerful_channelId = "UCzQUP1qoWDoEbmsQxvdjxgQ"
 
-def categorize():
-
-
-
 def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
     videosResponse = []
     nextPageToken = ""
