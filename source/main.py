@@ -96,9 +96,9 @@ def readFromStatic(path):
     with open(path) as file:
         return json.load(file)
 
-def getFilteredVideos(videos, guest="", category="", sort="Date", order="ascending"):
+def getFilteredVideos(videos, guest="", category="", sort="Date", order="Descending"):
     return sorted(
-        [video for video in videos if guest in video["Title"] and (video["Category"] == category or category == "All")],
+        [video for video in videos if guest.lower() in video["Title"].lower() and (video["Category"] == category or category == "All")],
         key=lambda i: i[sort],
-        reverse=False if order == "ascending" else True
+        reverse=False if order == "Ascending" else True
     )
