@@ -18,6 +18,7 @@ def requestStaticDatabase(request):
         videos=videos,
         guest=unquote(request.GET.get("guest", "")),
         category=unquote(request.GET.get("category", "All")),
+        sort=request.GET.get("sort", "PublishedAt"),
         order=request.GET.get("order", "Descending")
     )
     return JsonResponse(

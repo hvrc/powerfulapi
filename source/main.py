@@ -81,7 +81,7 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
             "Category": category,
             "Number": number,
             "URL": URL,
-            "Date": fullDate,
+            "PublishedAt": fullDate,
             "Description": description,
             "Thumbnail": thumbnail,
         })
@@ -96,7 +96,7 @@ def readFromStatic(path):
     with open(path) as file:
         return json.load(file)
 
-def getFilteredVideos(videos, guest="", category="", sort="Date", order="Descending"):
+def getFilteredVideos(videos, guest="", category="", sort="PublishedAt", order="Descending"):
     return sorted(
         [video for video in videos if guest.lower() in video["Title"].lower() and (video["Category"] == category or category == "All")],
         key=lambda i: i[sort],
