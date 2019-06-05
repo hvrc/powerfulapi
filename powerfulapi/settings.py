@@ -3,7 +3,8 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.environ.get("POWERFUL_API_SECRET_KEY")
-DEBUG = (os.environ.get("POWERFUL_API_DEBUG") == True)
+# DEBUG = (os.environ.get("POWERFUL_API_DEBUG") == True)
+DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "powerfulapi.herokuapp.com"]
 ROOT_URLCONF = "powerfulapi.urls"
