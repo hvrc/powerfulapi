@@ -8,12 +8,12 @@ from source.main import *
 @csrf_exempt
 def refreshStaticDatabase(request):
     videos = getVideos()
-    saveToStatic(videos, "staticfiles/database.json")
+    saveToStatic(videos, "static/database.json")
     return redirect("/")
 
 @csrf_exempt
 def viewStaticDatabase(request):
-    videos = readFromStatic("staticfiles/database.json")
+    videos = readFromStatic("static/database.json")
     filteredVideos = getFilteredVideos(
         videos=videos,
         guest=unquote(request.GET.get("guest", "")),
