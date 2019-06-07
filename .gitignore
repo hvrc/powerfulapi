@@ -1,4 +1,4 @@
 __pycache__/
 .DS_Store
-lib/
+venv/
 db.sqlite3
