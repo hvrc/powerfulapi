@@ -8,18 +8,18 @@ from source.main import *
 @csrf_exempt
 def refreshStaticDatabase(request):
     videos = getVideos()
-    saveToStatic(videos, "static/database.json")
+    saveToStatic(videos, "staticfiles/database.json")
     return redirect("/")
 
 @csrf_exempt
 def viewStaticDatabase(request):
-    videos = readFromStatic("static/database.json")
+    videos = readFromStatic("staticfiles/database.json")
     filteredVideos = getFilteredVideos(
         videos=videos,
         guest=unquote(request.GET.get("guest", "")),
-        category=unquote(request.GET.get("category", "All")),
-        sort=request.GET.get("sort", "PublishedAt"),
-        order=request.GET.get("order", "Descending")
+        category=unquote(request.GET.get("category", "all")),
+        sort=request.GET.get("sort", "publishedAt"),
+        order=request.GET.get("order", "descending")
     )
     return JsonResponse(
         data=filteredVideos,
