@@ -6,13 +6,13 @@ from urllib.parse import unquote
 from source.main import *
 
 @csrf_exempt
-def requestYouTubeDataAPI(request):
+def refreshStaticDatabase(request):
     videos = getVideos()
     saveToStatic(videos, "static/database.json")
     return redirect("/")
 
 @csrf_exempt
-def requestStaticDatabase(request):
+def viewStaticDatabase(request):
     videos = readFromStatic("static/database.json")
     filteredVideos = getFilteredVideos(
         videos=videos,
