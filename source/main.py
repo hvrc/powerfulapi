@@ -89,7 +89,6 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
     return videos
 
 def saveToStatic(videos, path):
-    os.remove(path)
     with open(path, "w") as file:
         json.dump(videos, file)
 
