@@ -8,6 +8,7 @@ powerful_api_key = os.environ.get("POWERFUL_API_KEY")
 powerful_channelId = "UCzQUP1qoWDoEbmsQxvdjxgQ"
 
 def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
+    print("Test 1")
     videosResponse = []
     nextPageToken = ""
     videos = []
@@ -89,6 +90,7 @@ def getVideos(api_key=powerful_api_key, channelId=powerful_channelId):
     return videos
 
 def saveToStatic(videos, path):
+    print("Test 2")
     with open(path, "w") as file:
         json.dump(videos, file)
 
